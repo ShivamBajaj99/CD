@@ -1,0 +1,42 @@
+%{ 
+       #include<stdio.h>
+       int single=0;
+       int multi=0;
+
+
+%}  
+%%
+
+"//".*\n {single++;}
+
+"/*"[^*]*"*/" {multi++;}
+
+%%
+
+int yywrap()
+
+{
+
+     return 1;
+
+}
+
+int main()
+
+{
+
+     yyin=fopen("input.c","r");
+
+     yyout=fopen('output.c", "w");
+
+     yylex();
+
+     fclose(yyin);
+
+     fclose(yyout);
+
+     printf("No of single comment=%d\n No of multi line comment=%d\n", single, multi);
+
+     return 0;
+
+} 
